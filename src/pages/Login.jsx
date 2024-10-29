@@ -6,11 +6,9 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   let [email, setEmail] = useState("");
-
   let [password, setPassword] = useState("");
   let [emailerr, setEmailerr] = useState("");
   let [passworderr, setPassworderr] = useState("");
-
   let [passwordshow, setPasswordshow] = useState(false);
 
   let handleEmail = (e) => {
@@ -103,7 +101,7 @@ const Login = () => {
             <p className="text-sm  text-secondary text-center w-[368px] mt-[35px] ">
               Already have an account?
               {" "}
-            <Link to="/signup" className=" text-[#EA6C00] font-bold">
+            <Link to="/Signup" className=" text-[#EA6C00] font-bold">
               Sign Up
             </Link>
             </p>

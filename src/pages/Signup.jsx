@@ -2,17 +2,15 @@ import React, { useState } from "react";
 import SignupImg from "../assets/Signup.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const Signup = () => {
-  const auth = getAuth();
+   
   let [email, setEmail] = useState("");
   let [name, setName] = useState("");
   let [password, setPassword] = useState("");
   let [emailerr, setEmailerr] = useState("");
   let [nameerr, setNameerr] = useState("");
   let [passworderr, setPassworderr] = useState("");
-
   let [passwordshow, setPasswordshow] = useState(false);
 
   let handleEmail = (e) => {
@@ -41,20 +39,7 @@ const Signup = () => {
     if (!password) {
       setPassworderr("required a passwoprd");
     }
-    if (name && email && password) {
-      console.log(submit);
-
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in successfully, redirect to home page
-          console.log(userCredential);
-        })
-        .catch((error) => {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          console.log(error);
-        });
-    }
+    
   };
 
   return (
@@ -137,7 +122,7 @@ const Signup = () => {
             </button>
             <p className="text-sm  text-secondary text-center w-[368px] mt-[35px] ">
               Already have an account?{" "}
-              <Link to="/Login" className=" text-[#EA6C00] font-bold">
+              <Link to="/" className=" text-[#EA6C00] font-bold">
                 Log in
               </Link>
             </p>

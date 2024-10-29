@@ -8,17 +8,21 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-  <>
-    <Route path="/login" element={<Login />}></Route>
-    <Route path="/Signup" element={<Signup />}></Route>
-    
-  </>
-)
-);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/Signup",
+    element: <Signup />,
+  },
+]);
+
 
 const App = () => {
+
+
   return (
     <RouterProvider router={router} />
 
