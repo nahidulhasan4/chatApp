@@ -2,22 +2,65 @@ import React, {useState} from 'react'
 import SignupImg from '../assets/Signup.png'
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//
 
 const Signup = () => {
+
+
+
+  let [email, setEmail] = useState("");
+    let [name, setName] = useState("");
+    let [password, setPassword] = useState("");
+    let [emailerr, setEmailerr] = useState("");
+    let [nameerr, setNameerr] = useState("");
+    let [passworderr, setPassworderr] = useState("");
+  
+  
+    let handleEmail = (e) => {
+      setEmail(e.target.value);
+      setEmailerr("")
+      
+    };
+    let handleName = (e) => {
+      setName(e.target.value);
+      setNameerr("")
+    };
+    let handlePassword = (e) => {
+      setPassword(e.target.value);
+      setPassworderr("")
+    };
+  let handleSubmit=()=>{
+  
+      if(!email){
+       setEmailerr('Email is required')
+      }if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+          setEmailerr("Invalid Email");
+      }if(!name){
+     setnameErr("Invalid Name");
+      }if(!password){
+          setPassErr("Invalid Password");
+      }else{
+          alert("thanks for giving kind information")
+      }
+  
+  }
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <>
     <div className='w-full h-screen flex'>
@@ -35,8 +78,15 @@ const Signup = () => {
          >
            Email Address
          </label>
-       <input type="text"  className='w-full h-full  border border-secondary/50 rounded-lg  pl-[50px]'/>
+       <input 
+      //  onChange={handleEmail} 
+       type='text' 
+       placeholder='Enter your Valid Email' 
+       className='w-full h-full  border border-secondary/50 rounded-lg  pl-[50px]'/>
        </div>
+       {emailerr && (
+              <p className=" text-red-500 text-xl font-normal">{emailerr}</p>
+            )}
        <div className=' w-[368px]  h-[80px] mt-[56px]  relative '>
        <label
            className= 'text-sm  font-semibold  text-secondary absolute top-[-10px] left-[50px] bg-white px-2  '
@@ -44,17 +94,30 @@ const Signup = () => {
            
            Full Name
          </label>
-       <input  type="text"  className='w-full h-full  border border-secondary/50 rounded-lg  pl-[50px]'/>
+       <input  
+      //  onChange={handleName}
+        type='text' placeholder='Enter your  full Name' 
+        className='w-full h-full  border border-secondary/50 rounded-lg  pl-[50px]'/>
        </div>
+       {nameerr && (
+              <p className=" text-red-500 text-xl font-normal">{nameerr}</p>
+            )}
        <div className=' w-[368px]  h-[80px] mt-[56px]  relative '>
        <label
            className= 'text-sm  font-semibold  text-secondary absolute top-[-10px] left-[50px] bg-white px-2  '
          >
            password
          </label>
-       <input  type="password"  className='w-full h-full  border border-secondary/50 rounded-lg  pl-[50px]'/>
+       <input 
+      //  onChange={handlePassword}  
+       type='password' 
+       placeholder='Set a strong password' 
+       className='w-full h-full  border border-secondary/50 rounded-lg  pl-[50px]'/>
        </div>
-       <button className=" bg-primary w-[368px]  py-5 text-xl font-semibold text-white rounded-[86px] mt-[51px] ">
+       {passworderr && (
+              <p className=" text-red-500 text-xl font-normal">{passworderr}</p>
+            )}
+       <button onClick={handleSubmit} className=" bg-primary w-[368px] cursor-pointer  py-5 text-xl font-semibold text-white rounded-[86px] mt-[51px] ">
            Sign Up
          </button>
          <p className="text-sm  text-secondary text-center w-[368px] mt-[35px] ">
