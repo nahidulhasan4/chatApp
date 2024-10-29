@@ -1,18 +1,22 @@
 import React from 'react';
-import SIgnin from './pages/SIgnin';
+import Login from './pages/Login';
 import Signup from './pages/Signup';
 import {
+  createRoutesFromElements,
   createBrowserRouter,
+  Route,
   RouterProvider,
 } from "react-router-dom";
 
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Signup/>,
-  },
-]);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+  <>
+    <Route path="/login" element={<Login />}></Route>
+    <Route path="/Signup" element={<Signup />}></Route>
+    
+  </>
+)
+);
 
 const App = () => {
   return (
