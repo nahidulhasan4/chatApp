@@ -1,5 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react'
 import SignupImg from '../assets/Signup.png'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const Signup = () => {
   return (
