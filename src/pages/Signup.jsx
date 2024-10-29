@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import SignupImg from "../assets/Signup.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const Signup = () => {
+  const auth = getAuth();
   let [email, setEmail] = useState("");
   let [name, setName] = useState("");
   let [password, setPassword] = useState("");
@@ -39,6 +40,20 @@ const Signup = () => {
     }
     if (!password) {
       setPassworderr("required a passwoprd");
+    }
+    if (name && email && password) {
+      console.log(submit);
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in successfully, redirect to home page
+          console.log(userCredential);
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(error);
+        });
     }
   };
 
@@ -121,11 +136,10 @@ const Signup = () => {
               Sign Up
             </button>
             <p className="text-sm  text-secondary text-center w-[368px] mt-[35px] ">
-              Already have an account?
-              {" "}
-            <Link to="/Login" className=" text-[#EA6C00] font-bold">
-             Log in
-            </Link>
+              Already have an account?{" "}
+              <Link to="/Login" className=" text-[#EA6C00] font-bold">
+                Log in
+              </Link>
             </p>
           </div>
         </div>
