@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import SignupImg from "../assets/Signup.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
+
 
 const Signup = () => {
-   
+  const auth = getAuth();
   let [email, setEmail] = useState("");
   let [name, setName] = useState("");
   let [password, setPassword] = useState("");
@@ -39,6 +42,20 @@ const Signup = () => {
     if (!password) {
       setPassworderr("required a passwoprd");
     }
+    if(name&& email&& password){
+      createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
+    }
+ 
     
   };
 
