@@ -1,15 +1,27 @@
 import React, { useState } from "react";
 import SigninImg from "../assets/Signin.jpg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
-
+import {  Link, useNavigate } from "react-router-dom";
+import GoogleImage from "../assets/google.png";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  FacebookAuthProvider,
+} from "firebase/auth";
 
 const Login = () => {
+  const auth = getAuth();
+  let navigate = useNavigate();
+
+  const provider = new GoogleAuthProvider();
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [emailerr, setEmailerr] = useState("");
   let [passworderr, setPassworderr] = useState("");
   let [passwordshow, setPasswordshow] = useState(false);
+  let [loginEr, setLoginEr] = useState('')
 
   let handleEmail = (e) => {
     setEmail(e.target.value);
@@ -31,7 +43,49 @@ const Login = () => {
     if (!password) {
       setPassworderr("required a passwoprd");
     }
+    if (email && password) {
+
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+
+          
+
+          navigate('/')
+
+        })
+        .catch((error) => {
+          const errorCode = error;
+          console.log(errorCode)
+          if (error.code.includes("auth/invalid-credential")) {
+            setLoginEr("Invalid-credential");
+          }
+        });
+    }
   };
+
+  let handleGoogleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((userCredential) => {
+
+        set(ref(db, "users/" + userCredential.user.uid), {
+          name: userCredential.user.displayName,
+          email: userCredential.user.email,
+          image: userCredential.user.photoURL,
+            date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}- ${new Date().getDate()}-${new Date().getHours()}-${new Date().getMinutes()}-${new Date().getSeconds()}`
+        }).then(() => {
+          setTimeout(() => {
+
+            navigate("/");
+          }, 2000);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
 
   return (
     <>
@@ -41,7 +95,12 @@ const Login = () => {
             <h1 className=" text-[34px] font-bold text-secondary ">
             Login to your account!
             </h1>
-           
+            <div className=" flex lg:block">
+            <button onClick={handleGoogleLogin} className=" mt-5">
+              <img src={GoogleImage} alt="" />
+            </button>
+          
+          </div>
             <div className=" w-[368px]  h-[80px] mt-[61px]  relative ">
               <label className="text-sm  font-semibold  text-secondary absolute top-[-10px] left-[50px] bg-white px-2  ">
                 Email Address
@@ -105,6 +164,7 @@ const Login = () => {
               Sign Up
             </Link>
             </p>
+            <h4 className="mt-5 text-red-500 ">{loginEr}</h4>
           </div>
         </div>
         <div className="w-2/4 h-full">
