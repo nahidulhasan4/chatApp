@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import SignupImg from "../assets/Signup.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
-
+import { Grid } from "react-loader-spinner";
 
 const Signup = () => {
+  
   const auth = getAuth();
+  let navigate = useNavigate();
+
   let [email, setEmail] = useState("");
   let [name, setName] = useState("");
   let [password, setPassword] = useState("");
@@ -15,6 +17,7 @@ const Signup = () => {
   let [nameerr, setNameerr] = useState("");
   let [passworderr, setPassworderr] = useState("");
   let [passwordshow, setPasswordshow] = useState(false);
+  let [success, setSuccess] = useState(false);
 
   let handleEmail = (e) => {
     setEmail(e.target.value);
@@ -42,21 +45,32 @@ const Signup = () => {
     if (!password) {
       setPassworderr("required a passwoprd");
     }
-    if(name&& email&& password){
+    if (name && email && password) {
+      setSuccess(true);
       createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed up 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
+      
+        .then((userCredential) => {
+
+          // Signed up
+         
+          const user = userCredential.user;
+          setTimeout(() => {
+            setSuccess(false);
+            navigate("/login");
+          }, 1000);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+          setTimeout(() => {
+            setSuccess(false);
+            if(error.code.includes('auth/email-already-in-use')){
+              setEmailerr("Email is already registered");
+            }
+          }, 1000);
+        });
     }
- 
-    
   };
 
   return (
@@ -130,13 +144,29 @@ const Signup = () => {
                 </p>
               )}
             </div>
+            {success ? (
+              <div className="w-[368px] text-center flex justify-center mt-5">
+                <Grid
+                visible={true}
+                height="40"
+                width="40"
+                
+                color="#fb5800"
+                ariaLabel="grid-loading"
+                radius="12.5"
+                wrapperStyle={{}}
+                wrapperClass="grid-wrapper mx-auto"
+              />
+              </div>
+            ) : (
+              <button
+                onClick={handleSubmit}
+                className=" bg-primary w-[368px] cursor-pointer  py-5 text-xl font-semibold text-white rounded-[86px] mt-[51px] "
+              >
+                Sign Up
+              </button>
+            )}
 
-            <button
-              onClick={handleSubmit}
-              className=" bg-primary w-[368px] cursor-pointer  py-5 text-xl font-semibold text-white rounded-[86px] mt-[51px] "
-            >
-              Sign Up
-            </button>
             <p className="text-sm  text-secondary text-center w-[368px] mt-[35px] ">
               Already have an account?{" "}
               <Link to="/" className=" text-[#EA6C00] font-bold">
