@@ -62,7 +62,7 @@ const Signup = () => {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          // ..
+          
           setTimeout(() => {
             setSuccess(false);
             if(error.code.includes('auth/email-already-in-use')){
