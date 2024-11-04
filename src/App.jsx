@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Home from './pages/Home';
 import {
   createRoutesFromElements,
   createBrowserRouter,
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
     path: "/Signup",
     element: <Signup />,
   },
+ 
 ]);
 
 
