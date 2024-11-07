@@ -169,7 +169,7 @@ const Signup = () => {
 
             <p className="text-sm  text-secondary text-center w-[368px] mt-[35px] ">
               Already have an account?{" "}
-              <Link to="/" className=" text-[#EA6C00] font-bold">
+              <Link to="/login" className=" text-[#EA6C00] font-bold">
                 Log in
               </Link>
             </p>
