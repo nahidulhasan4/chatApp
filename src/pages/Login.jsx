@@ -8,7 +8,7 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  FacebookAuthProvider,
+ 
 } from "firebase/auth";
 
 const Login = () => {
