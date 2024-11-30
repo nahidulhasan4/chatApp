@@ -31,29 +31,8 @@ const BlockList = () => {
           block
           </button>
         </div>
-        <div className=" flex justify-between items-center  border-b border-black/25 pb-6 mt-4">
-          <div className=" flex items-center gap-[14px] ">
-            <img
-              className=" w-[70px] h-[70px] rounded-full"
-              src={Signinimg}
-              alt=""
-            />
-            <div>
-              <h3 className=" text-[18px] font-semibold text-black ">
-                Friends Reunion
-              </h3>
-              <p className=" text-[14px] font-semibold text-gray-500 ">
-                {" "}
-                Hi Guys, Wassup!
-              </p>
-            </div>
-          </div>
-          <button className=" bg-primary px-5 py-2 text-white font-normal text-[18px] rounded-lg ">
-          Block
-          </button>
-        </div>
+      
         
-       
         <div className=" flex justify-between items-center  border-b border-black/25 pb-6 mt-4">
           <div className=" flex items-center gap-[14px] ">
             <img
